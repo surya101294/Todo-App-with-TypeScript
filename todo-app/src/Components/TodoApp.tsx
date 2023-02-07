@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { deleteData, editData, getData } from '../Api'
+import { deleteData, getData } from '../Api'
 import { Todo } from '../Constants'
 import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
+import { Typography } from '@mui/material'
+import Loader from './Loader'
 
 const TodoApp = () => {
     const [todos,setTodos]= useState<Todo[]>([])
@@ -21,12 +23,20 @@ const TodoApp = () => {
     }
 
     return (
-    <div>
+    <div style={{backgroundColor:"whitesmoke"}}>
+      <Typography variant="h3" component="h2">
+  Todo-Application
+</Typography>
+<br />
       <TodoInput onAdd={onAdd}/>
-        {todos.length>0 && todos.map((el)=>{
+      <br />
+        {todos.length>0 ? todos.map((el)=>{
             return <TodoItem key= {el.id} 
             {...el} handleUpdate= {handleUpdate} handleDelete={handleDelete} />
-        })}
+        })
+        :
+      <Loader/>
+      }
     </div>
   )
 }
